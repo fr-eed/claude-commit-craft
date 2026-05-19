@@ -1,0 +1,29 @@
+# Build order for commit-craft SKILL.md.
+# run `make install` to regenerate.
+# `#` - comments ignored.
+
+frontmatter.yml
+
+# Setup
+workflow/intro.md
+workflow/phase-1-state.md
+
+# Phase 2: cluster files into commits
+workflow/phase-2-group.md
+commits/grouping.md
+
+# Phase 3: build and validate the plan
+workflow/phase-3-plan.md
+commits/titles.md
+commits/bodies.md
+interfaces/dialog.md
+
+# Phase 4: fallback when dialog is unavailable
+workflow/phase-4-fallback.md
+interfaces/fallback.md
+
+# Phase 5: execute the plan
+workflow/phase-5-execute.md
+
+# Cross-cutting policies
+commits/safety.md

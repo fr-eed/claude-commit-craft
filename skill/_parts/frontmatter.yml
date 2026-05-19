@@ -1,0 +1,9 @@
+description: Create one or more git commits from pending changes. Reads git state, groups changes by logical concern, proposes a multi-commit split, opens a native dialog for approval, then executes. Enforces strict standards (imperative mood, single-concern, no banned patterns like `Update <filename>` or `wip`).
+when_to_use: User asks to commit changes, says "commit this", wants to ship pending work, or invokes /commit-craft.
+allowed-tools:
+  - Bash(git status *)
+  - Bash(git diff *)
+  - Bash(git log *)
+  - Bash(git config *)
+  - Bash(git rev-parse *)
+  - Bash(git add *)
