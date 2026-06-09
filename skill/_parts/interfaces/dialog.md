@@ -4,6 +4,8 @@
 
 Pipe the plan JSON to the dialog binary via stdin. The dialog writes the result JSON to stdout; read it directly from the Bash tool's output. Do NOT wrap the call in `RESULT=$(...)`: a shell-variable capture swallows the binary's stdout into a shell variable, leaving the Bash tool with empty output that Claude can't parse.
 
+**Run it as a single blocking foreground call. Do NOT launch the dialog in the background and then poll for it** (no `run_in_background`, no `&`, no follow-up `while kill -0 ... / pgrep / wait` loop). The dialog is interactive and may stay open for a while; a polling loop that signals the process can kill it out from under the user before they finish. Just make the one Bash call and let it block until the user submits. Its stdout is the result.
+
 The dialog binary is not in `allowed-tools` by design (explicit confirmation before the dialog opens), so Claude Code will prompt for permission each invocation. Click Yes to proceed.
 
 `${CLAUDE_SKILL_DIR}` resolves to the skill's install directory regardless of scope (personal, project, or plugin). Use it instead of hardcoding `$HOME/.claude/skills/...`.
