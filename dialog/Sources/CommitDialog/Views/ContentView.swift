@@ -17,7 +17,7 @@ struct ContentView: View {
             // Tab bar
             HStack(spacing: 4) {
                 ForEach(store.commits.indices, id: \.self) { i in
-                    Button(action: { selected = i }) {
+                    Button(action: { switchTab(to: i) }) {
                         Text("\(i + 1). \(store.commits[i].title.isEmpty ? "(untitled)" : store.commits[i].title)")
                             .lineLimit(1)
                             .font(.system(.caption, design: .monospaced))
@@ -92,5 +92,15 @@ struct ContentView: View {
         )
         .preferredColorScheme(.dark)
         .tint(Theme.accent)
+    }
+
+    // Tab switches swap the `.id(selected)` subtree below, deallocating the text
+    // field being edited. Reset the field-editor undo first (see FieldEditorUndo)
+    // so a later Cmd-Z can't crash on the freed view.
+    private func switchTab(to index: Int) {
+        if let window = NSApp.keyWindow {
+            FieldEditorUndo.reset(in: window)
+        }
+        selected = index
     }
 }
